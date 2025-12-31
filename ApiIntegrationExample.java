@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AutomatedApiProcess {
+public class ApiIntegrationExample {
 
     public static void main(String[] args) {
 
@@ -51,3 +51,4 @@ public class AutomatedApiProcess {
         }
     }
 }
+
