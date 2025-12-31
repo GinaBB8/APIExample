@@ -2,28 +2,37 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class ApiIntegrationExample {
+public class AutomatedApiProcess {
 
     public static void main(String[] args) {
-        try {
-            // API endpoint
-            String apiUrl = "https://jsonplaceholder.typicode.com/posts/1";
 
-            // Create URL object
+        // Timer to simulate an automated scheduled task
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                callApiAndProcessData();
+            }
+        }, 0, 5000); // runs every 5 seconds
+    }
+
+    private static void callApiAndProcessData() {
+        try {
+            String apiUrl = "https://jsonplaceholder.typicode.com/todos/1";
+
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            // Set request method
             connection.setRequestMethod("GET");
 
-            // Read response
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(connection.getInputStream())
             );
 
-            String line;
             StringBuilder response = new StringBuilder();
+            String line;
 
             while ((line = reader.readLine()) != null) {
                 response.append(line);
@@ -31,9 +40,11 @@ public class ApiIntegrationExample {
 
             reader.close();
 
-            // Print API response
-            System.out.println("API Response:");
+            // Simulated automated processing
+            System.out.println("Automated API Check:");
+            System.out.println("Response received at " + System.currentTimeMillis());
             System.out.println(response.toString());
+            System.out.println("----------------------------------");
 
         } catch (Exception e) {
             e.printStackTrace();
